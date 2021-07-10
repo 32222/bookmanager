@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout/layout}">
+<head>
+  <meta charset="UTF-8" th:remove="tag">
+</head>
+<body>
+
+  <!-- サイドバーの表示 -->
+  <div layout:fragment="sidebar"
+    th:replace="~{fragments/sidebar :: sidebar}">
+  </div>
+
+  <!-- コンテンツの表示 -->
+  <div layout:fragment="content">
+    <main class="offcanvas-outside bg-light">
+      <div class="container-fluid">
+
+        <!-- トグルボタン -->
+        <div th:replace="~{fragments/sidebar :: toggler}">
+        </div>
+
+        <div class="row">
+          <div class="col">
+
+            <div class="card shadow">
+              <div class="card-header">
+                <h6 class="text-navy my-2" th:text="#{addbook.functionname}">
+                </h6>
+              </div>
+              <div class="card-body">
+                <form th:action="@{/process}" th:object="${book}"
+                  method="post">
+                  <input type="hidden" th:field="*{id}">
+
+                  <div class="mb-3">
+                    <label for="title" th:text="#{book.title}"></label>
+                    <input type="text" class="form-control"
+                      th:errorclass="is-invalid" th:field="*{title}">
+                    <div class="invalid-feedback" th:errors="*{title}">
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <label for="title" th:text="#{book.author}"></label>
+                    <input type="text" class="form-control"
+                      th:errorclass="is-invalid" th:field="*{author}">
+                    <div class="invalid-feedback" th:errors="*{author}">
+                    </div>
+                  </div>
+                  
+                  <div class="mb-3">
+                    <label for="title" th:text="#{book.publisher}"></label>
+                    <input type="text" class="form-control"
+                      th:errorclass="is-invalid" th:field="*{publisher}">
+                    <div class="invalid-feedback" th:errors="*{publisher}">
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                      <span th:text="#{book.status}"></span>
+                      <select class="form-select" th:field="*{status}">
+                          <option th:each="bookstatus :${T(com.example.demo.util.Type).BOOKSTATUS}"
+                                  th:value="${bookstatus.key}"
+                                  th:selected="${bookstatus == status}">
+                              [[${bookstatus.value}]]
+                          </option>
+                      </select>
+                  </div> 
+                   
+                  <div class="mb-3">
+                      <span th:text="#{book.medium}"></span>
+                      <select class="form-select" th:field="*{medium}">
+                          <option th:each="medium :${T(com.example.demo.util.Type).MEDIUM}"
+                                  th:value="${medium.key}"
+                                  th:selected="${medium == book.medium}">
+                              [[${medium.value}]]
+                          </option>
+                      </select>
+                  </div> 
+                  <div class="mb-3">
+                    <label for="title" th:text="#{book.purchaseDate}"></label>
+                    <input type="date" class="form-control"
+                      th:errorclass="is-invalid" th:field="*{purchaseDate}">
+                    <div class="invalid-feedback" th:errors="*{purchaseDate}">
+                    </div>
+                  </div>
+                  
+                  <hr>
+                  <button class="btn btn-navy col-4">
+                    <i class="bi bi-pencil-square"></i>
+                    <span class="text" th:text="#{addbook.button.label.save}"></span>
+                  </button>
+                </form>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+</body>
+</html>

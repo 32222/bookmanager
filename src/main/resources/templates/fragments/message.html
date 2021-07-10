@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+	<div th:fragment="login">
+		<div class="alert alert-danger" th:if="${param.error}">
+			<small th:text="#{message.login.error}"></small>
+		</div>
+		<div class="alert alert-success" th:if="${param.register}">
+			<small th:text="#{message.login.register.success}"></small>
+		</div>
+		<div class="alert alert-success" th:if="${param.logout}">
+			<small th:text="#{message.login.logout.success}"></small>
+		</div>
+	</div>
+	<div th:fragment="booklist">
+		<div class="alert alert-success" th:if="${param.complete}">
+			<small th:text="#{message.booklist.addbook.success}"></small>
+		</div>
+		<div class="alert alert-success" th:if="${param.deletebook}">
+			<small th:text="#{message.booklist.deletebook.success}"></small>
+		</div>
+	</div>
+
+
+	<!-- エラー用 -->
+	<div th:fragment="error">
+		<div class="text-center">
+			<div class="display-1" th:text="${status}"></div>
+			<div class="text-muted mb-4" th:text="${error}"></div>
+			<div class="text-muted" th:text="#{message.error.pagecannotdisplayed"></div>
+			<a th:href="@{/booklist" }" th:text="#{message.error.returnhome}></a>
+		</div>
+	</div>
+</body>
+</html>
