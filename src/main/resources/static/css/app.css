@@ -28,7 +28,7 @@
   width: 200px;
 }
 
-@media (min-width: 992px) {
+@media (min-width: 1000px) {
   .offcanvas {
     transform: none;
     visibility: visible !important;
